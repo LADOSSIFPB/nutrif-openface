@@ -5,7 +5,8 @@ Controle de acesso do Refeitório estudantil usando reconhecimento facial.
 
 ### Docker ###
 
---
+---
+
 1) Clone Repo
 
 ```
