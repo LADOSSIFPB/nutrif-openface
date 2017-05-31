@@ -35,3 +35,4 @@ cd nutrif-openface
 
 ## Referências ##
 OpenFace Project - https://cmusatyalab.github.io/openface/
+Home Surveillance - https://github.com/BrandonJoffe/home_surveillance
