@@ -30,3 +30,8 @@ docker run -v /Users/:/host -p 9000:9000 -p 8000:8000 -p 5000:5000 -t -i thayann
 ```
 cd nutrif-openface
 ```
+
+---
+
+## Referências ##
+OpenFace Project - https://cmusatyalab.github.io/openface/
