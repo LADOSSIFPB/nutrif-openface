@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 import FaceDetector as fd
@@ -8,6 +9,10 @@ app = Flask(__name__)
 def detectFaces(image):
     detector = fd.FaceDetector()
     return detector.detectFaces(image)
+
+@app.route("/compare", methods=['POST'])
+def compareFaces(image):
+    
 
 @app.route("/train", methods=['GET', 'POST'])
 def train():
