@@ -8,4 +8,7 @@ class FaceRecognizer(object):
     def __init__(self):
 
     def recognize(self, image):
-        
+
+    def train():
+
+    def generateRepresentation():
