@@ -53,3 +53,7 @@ Thumbs.db
 *.exe
 *.out
 *.app
+
+#directories
+aligned/
+images/

@@ -10,9 +10,7 @@ class FaceCompare(object):
         self.imgDim = 96
         self.align = openface.AlignDlib("../models/dlib/shape_predictor_68_face_landmarks.dat")
         self.net = openface.TorchNeuralNet("../models/openface/nn4.small2.v1.t7", imgDim)
-
-    def compare(image, id):
-        # implementar media de comparacao com repositorio
+        
 
     def getRep(image):
         image = cv2.imread(image)
