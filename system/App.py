@@ -20,16 +20,22 @@ def upload(image):
         f = os.path.join(app.config['UPLOAD_FOLDER'], image.filename)
         image.save(f)
     else:
-        print('======== ERROR ========')
         return 'not received'
 
 @app.route('/detect', methods=['POST'])
 def detectFaces():
-    image = request.files['image']
-    upload(image)
-    detector = fd.FaceDetector()
-    faces = detector.detectFaces('uploads/' + image.filename)
-    return(str(faces))
+    if request.is_json:
+        data = request.get_json()
+        img64 = data['image']
+        imgdata = base64.decodestring(img64)
+        imgfile = 'uploads/detectface.png'
+        with open(imgfile, 'wb') as f:
+            f.write(imgdata)
+        detector = fd.FaceDetector()
+        faces = detector.detectFaces(imgfile)
+        return jsonify(faces = str(faces))
+    else:
+        return 'Json not received'
 
 @app.route('/recognize', methods=['GET', 'POST'])
 def recognize():
