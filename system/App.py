@@ -46,29 +46,6 @@ def recognize():
         return jsonify(person = person.decode('utf-8'), confidence = "{:.2f}".format(confidence))
     else:
         return 'Json not received'
-    # if request.method == 'POST':
-    #     image = request.files['image']
-    #     upload(image)
-    #     recognizer = fz.FaceRecognizer()
-
-    #     person, confidence = recognizer.recognizeFace('uploads/' + image.filename)
-    #     return jsonify(person = person.decode('utf-8'), confidence = "{:.2f}".format(confidence))
-    
-    # return False
-
-@app.route('/json', methods=['POST'])
-def json():
-    if request.is_json:
-        json = request.get_json()
-        imageEncode = json['image']
-        imgdata = base64.decodestring(imageEncode)
-        filename = 'some_image.jpg'  # I assume you have a way of picking unique filenames
-        with open(filename, 'wb') as f:
-            f.write(imgdata)
-        return "ok"
-
-    else:
-        return "json not received"
 
 if __name__ == "__main__":
     app.run(
