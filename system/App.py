@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import FaceDetector as fd
 import FaceRecognizer as fz
 import base64
@@ -36,15 +36,19 @@ def detectFaces():
 #     recognizer = fz.FaceRecognizer()
 #     return recognizer.train()
 
-@app.route("/recognize", methods=['GET', 'POST'])
+@app.route('/recognize', methods=['GET', 'POST'])
 def recognize():
     if request.method == 'POST':
-        face = request.files['face']
-        upload(face)
+        image = request.files['image']
+        upload(image)
         recognizer = fz.FaceRecognizer()
-        return recognizer.recognize(face.filename)
+
+        person, confidence = recognizer.recognizeFace('uploads/' + image.filename)
+        return jsonify(person = person.decode('utf-8'), confidence = "{:.2f}".format(confidence))
+    
     
     return False
+
 
 
 if __name__ == "__main__":
