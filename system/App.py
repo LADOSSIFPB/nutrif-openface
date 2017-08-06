@@ -34,7 +34,9 @@ def detectFaces():
 @app.route('/recognize', methods=['GET', 'POST'])
 def recognize():
     if request.is_json:
+        match = False
         data = request.get_json()
+        idInfer = data['id']
         img64 = data['image']
         imgdata = base64.decodestring(img64)
         imgfile = 'uploads/face.png'
@@ -43,7 +45,10 @@ def recognize():
 
         recognizer = fz.FaceRecognizer()
         person, confidence = recognizer.recognizeFace(imgfile)
-        return jsonify(person = person.decode('utf-8'), confidence = "{:.2f}".format(confidence))
+        if person == idInfer:
+            match = True
+
+        return jsonify(person = person.decode('utf-8'), confidence = "{:.2f}".format(confidence), match = match)
     else:
         return 'Json not received'
 
