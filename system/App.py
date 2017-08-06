@@ -31,11 +31,6 @@ def detectFaces():
     faces = detector.detectFaces('uploads/' + image.filename)
     return(str(faces))
 
-# @app.route("/train", methods=['GET'])
-# def train():
-#     recognizer = fz.FaceRecognizer()
-#     return recognizer.train()
-
 @app.route('/recognize', methods=['GET', 'POST'])
 def recognize():
     if request.method == 'POST':
@@ -46,10 +41,7 @@ def recognize():
         person, confidence = recognizer.recognizeFace('uploads/' + image.filename)
         return jsonify(person = person.decode('utf-8'), confidence = "{:.2f}".format(confidence))
     
-    
     return False
-
-
 
 if __name__ == "__main__":
     app.run(
