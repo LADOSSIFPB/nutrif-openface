@@ -54,6 +54,6 @@ Thumbs.db
 *.out
 *.app
 
-#directories
+# Directories
 aligned/
 images/
