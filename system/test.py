@@ -44,14 +44,23 @@
 # cv2.imshow("Faces found", image)
 # cv2.waitKey(0)
 
-from flask import jsonify
+# from flask import jsonify
 
-def alo():
-    num = 1
-    stra = '3030'
-    return num, stra
+# def alo():
+#     num = 1
+#     stra = '3030'
+#     return num, stra
 
 
-n1, stra = alo()
-json = jsonify(num = n1, strange = stra)
+# n1, stra = alo()
+# json = jsonify(num = n1, strange = stra)
 
+import base64
+
+with open("IMG_0320.png", "rb") as image_file:
+    encoded_string = base64.encodestring(image_file.read())
+ 
+encoded_string = encoded_string.decode('utf-8').replace('\n', '')
+
+with open('test.txt', 'w') as file:
+    file.write(encoded_string)
