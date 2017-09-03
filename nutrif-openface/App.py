@@ -11,19 +11,23 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.config['ALLOWED_EXTENSIONS'] = set(['png', 'jpg', 'jpeg'])
 
-def allowedFile(filename):
+def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
 def upload(image):
-    if image and allowedFile(image.filename):
+    if image and allowed_file(image.filename):
         f = os.path.join(app.config['UPLOAD_FOLDER'], image.filename)
         image.save(f)
     else:
         return 'not received'
 
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    return 'routes: <i>/detect</i> and <i>/recognize</i>'
+
 @app.route('/detect', methods=['POST'])
-def detectFaces():
+def detect_faces():
     if request.is_json:
         data = request.get_json()
         img64 = data['image']
@@ -32,26 +36,26 @@ def detectFaces():
         with open(imgfile, 'wb') as f:
             f.write(imgdata)
         detector = fd.FaceDetector()
-        faces = detector.detectFaces(imgfile)
+        faces = detector.detect_faces(imgfile)
         return jsonify(faces = str(faces))
     else:
         return 'Json not received'
 
 @app.route('/recognize', methods=['GET', 'POST'])
-def recognize():
+def recognize_face():
     if request.is_json:
         match = False
         data = request.get_json()
-        idInfer = data['id']
+        id_infer = data['id']
         img64 = data['image']
         imgdata = base64.decodestring(img64)
-        imgfile = 'uploads/face.png'
-        with open(imgfile, 'wb') as f:
+        img_file = 'uploads/face.png'
+        with open(img_file, 'wb') as f:
             f.write(imgdata)
 
         recognizer = fz.FaceRecognizer()
-        person, confidence = recognizer.recognizeFace(imgfile)
-        if person == idInfer:
+        person, confidence = recognizer.recognize_face(img_file)
+        if person == id_infer:
             match = True
 
         return jsonify(person = person.decode('utf-8'), confidence = "{:.2f}".format(confidence), match = match)

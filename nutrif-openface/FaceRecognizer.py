@@ -27,7 +27,7 @@ class FaceRecognizer(object):
         with open(classifier, 'rb') as f: # le = labels, clf = classifier
             (self.le, self.clf) = pickle.load(f) 
     
-    def getRep(self, img):
+    def get_rep(self, img):
         bgrImg = cv2.imread(img)
         if bgrImg is None:
             raise Exception("Unable to load image")
@@ -47,10 +47,10 @@ class FaceRecognizer(object):
         rep = self.net.forward(alignedFace) 
         return rep
         
-    def recognizeFace(self, img):
-        if self.getRep(img) is None:
+    def recognize_face(self, img):
+        if self.get_rep(img) is None:
             raise Exception("Could not get 128 measurements")
-        r = self.getRep(img)
+        r = self.get_rep(img)
         rep = r.reshape(1, -1) #reshape the image array to a single line instead of 2 dimensionals
         prediction = self.clf.predict_proba(rep).ravel()
         maxI = np.argmax(prediction)

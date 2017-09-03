@@ -12,12 +12,12 @@ class FaceCompare(object):
         self.net = openface.TorchNeuralNet("../models/openface/nn4.small2.v1.t7", imgDim)
         
 
-    def getRep(image):
+    def get_rep(image):
         image = cv2.imread(image)
         if image is None:
             raise Exception("Unable to load image: {}".format(imgPath))
         imageRgb = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-         bb = align.getLargestFaceBoundingBox(rgbImg)
+        bb = align.getLargestFaceBoundingBox(rgbImg)
         alignedFace = align.align(self.imgDim, imageRgb, bb,
                              landmarkIndices = openface.AlignDlib.OUTER_EYES_AND_NOSE)
         if alignedFace is None:
